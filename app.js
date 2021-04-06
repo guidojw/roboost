@@ -10,6 +10,7 @@ const { makeCommaSeparatedString } = require('./src/util').util
 // Update these constants:
 const UNIVERSE_ID = 0
 const IGNORE_USERS = []
+const GAME_NAME = ''
 
 const GUILD_ID = ''
 const OUTPUT_CHANNEL_ID = ''
@@ -64,24 +65,25 @@ async function updatePlaytesters () {
     await removeCollaborators(bloxyClient, removedCollaborators)
   }
 
+  const gameName = GAME_NAME !== '' ? GAME_NAME : 'your game'
   const channel = guild.channels.cache.get(OUTPUT_CHANNEL_ID)
   if (channel) {
     let message = ''
     if (addedCollaborators.length > 0) {
-      message += `Added ${makeCommaSeparatedString(addedCollaborators.map(collaborator => usernames[collaborator.subjectId]).map(username => `**${username}**`))} to the Updates Workplace.\n`
+      message += `Added ${makeCommaSeparatedString(addedCollaborators.map(collaborator => usernames[collaborator.subjectId]).map(username => `**${username}**`))} to ${gameName}.\n`
     }
     if (removedCollaborators.length > 0) {
-      message += `Removed ${makeCommaSeparatedString(removedCollaborators.map(collaborator => usernames[collaborator.subjectId]).map(username => `**${username}**`))} from the Updates Workplace.\n`
+      message += `Removed ${makeCommaSeparatedString(removedCollaborators.map(collaborator => usernames[collaborator.subjectId]).map(username => `**${username}**`))} from ${gameName}.\n`
     }
     if (notVerifieds.length > 0) {
-      message += `Couldn't add ${makeCommaSeparatedString(notVerifieds)} to the Updates Workplace. Verify with RoVer or Bloxlink in order to be added.`
+      message += `Couldn't add ${makeCommaSeparatedString(notVerifieds)} to ${gameName}. Verify with RoVer or Bloxlink in order to be added.`
     }
     if (message !== '') {
       await channel.send(message, { allowedMentions: { parse: [] } })
     }
   }
 
-  console.log(`Successfully added ${addedCollaborators.length} and removed ${removedCollaborators.length} users from the Updates Workplace. ${notVerifieds.length} users weren't added because they aren't verified with RoVer or Bloxlink.`)
+  console.log(`Successfully added ${addedCollaborators.length} and removed ${removedCollaborators.length} users from ${gameName}. ${notVerifieds.length} users weren't added because they aren't verified with RoVer or Bloxlink.`)
 
   discordClient.destroy()
 }

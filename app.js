@@ -7,11 +7,12 @@ const { Client: DiscordClient } = require('discord.js')
 const { userService } = require('./src/services')
 const { makeCommaSeparatedString } = require('./src/util').util
 
-const UNIVERSE_ID = 72547907
-const IGNORE_USERS = [5087205]
+// Update these constants:
+const UNIVERSE_ID = 0
+const IGNORE_USERS = []
 
-const GUILD_ID = '248213310787289099'
-const OUTPUT_CHANNEL_ID = '697536748137218089'
+const GUILD_ID = ''
+const OUTPUT_CHANNEL_ID = ''
 
 require('./src/extensions')
 

@@ -1,0 +1,18 @@
+.env
+
+# Git
+.git
+
+# Docker configuration
+Dockerfile
+docker-compose.yml
+
+
+# Dependencies
+node_modules
+
+# Miscellaneous
+npm-debug.log
+yarn-error.log
+ecosystem.config.js
+/.idea/*

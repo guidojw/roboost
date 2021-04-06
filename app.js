@@ -62,6 +62,13 @@ async function updatePlaytesters () {
     await addCollaborators(bloxyClient, addedCollaborators)
   }
   if (removedCollaborators.length > 0) {
+    for (const collaborator of removedCollaborators) {
+      collaborator.subjectType = 'User'
+      collaborator.subjectId = collaborator.userId
+      delete collaborator.userId
+      delete collaborator.userName
+      delete collaborator.allowedPermissions
+    }
     await removeCollaborators(bloxyClient, removedCollaborators)
   }
 

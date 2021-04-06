@@ -1,23 +1,15 @@
 {
-  "name": "update-collaborators",
+  "name": "update-booster-playtesters",
   "version": "1.0.0",
   "main": "app.js",
   "license": "MIT",
   "scripts": {
-    "start": "node app.js",
-    "lint": "eslint src app.js"
+    "start": "node app.js"
   },
   "dependencies": {
     "axios": "^0.21.1",
     "bloxy": "^5.7.3",
     "discord.js": "^12.5.2",
     "dotenv": "^8.2.0"
-  },
-  "devDependencies": {
-    "eslint": "^7.22.0",
-    "eslint-config-standard": "^16.0.2",
-    "eslint-plugin-import": "^2.22.1",
-    "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^4.3.1"
   }
 }

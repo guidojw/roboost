@@ -111,7 +111,7 @@ function shouldRemove (members, userId) {
 
 async function getCollaborators (client) {
   return (await client.apis.developAPI.request({
-    requiresAuth: false,
+    requiresAuth: true,
     request: {
       path: `v2/universes/${UNIVERSE_ID}/permissions`,
       method: 'GET',
@@ -137,7 +137,7 @@ async function getCollaborators (client) {
 
 function addCollaborators (client, collaborators) {
   return client.apis.developAPI.request({
-    requiresAuth: false,
+    requiresAuth: true,
     request: {
       path: `v2/universes/${UNIVERSE_ID}/permissions`,
       method: 'POST',
@@ -150,7 +150,7 @@ function addCollaborators (client, collaborators) {
 
 function removeCollaborators (client, collaborators) {
   return client.apis.developAPI.request({
-    requiresAuth: false,
+    requiresAuth: true,
     request: {
       path: `v2/universes/${UNIVERSE_ID}/permissions`,
       method: 'DELETE',

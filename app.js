@@ -24,12 +24,8 @@ async function updatePlaytesters () {
   const guild = discordClient.guilds.cache.get(GUILD_ID)
   const members = (await guild.members.fetch()).filter(member => member.premiumSince !== null)
 
-  const bloxyClient = new BloxyClient({
-    credentials: {
-      cookie: process.env.ROBLOX_COOKIE
-    }
-  })
-  await bloxyClient.login()
+  const bloxyClient = new BloxyClient()
+  await bloxyClient.login(process.env.ROBLOX_COOKIE)
 
   const collaborators = await getCollaborators(bloxyClient)
   const usernames = {}

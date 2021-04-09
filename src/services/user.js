@@ -6,6 +6,11 @@ async function getGroupsRoles (userId) {
   return (await robloxAdapter('get', 'groups', `v1/users/${userId}/groups/roles`)).data.data
 }
 
+async function getUser (userId) {
+  return (await robloxAdapter('GET', 'users', `v1/users/${userId}`)).data
+}
+
 module.exports = {
-  getGroupsRoles
+  getGroupsRoles,
+  getUser
 }

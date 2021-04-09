@@ -42,7 +42,8 @@ async function updatePlaytesters () {
 
     if (await shouldAdd(collaborators, verificationData.robloxId)) {
       addedCollaborators.push({ subjectType: 'User', subjectId: verificationData.robloxId, action: 'Play' })
-      usernames[verificationData.robloxId] = verificationData.robloxUsername ?? verificationData.robloxId
+      usernames[verificationData.robloxId] = verificationData.robloxUsername ||
+        (await userService.getUser(verificationData.robloxId)).name
     }
   }
 
@@ -50,7 +51,7 @@ async function updatePlaytesters () {
   for (const collaborator of collaborators) {
     if (typeof collaborator.userId !== 'undefined' && shouldRemove(members, collaborator.userId)) {
       removedCollaborators.push(collaborator)
-      usernames[collaborator.subjectId] = collaborator.username ?? collaborator.userId
+      usernames[collaborator.userId] = collaborator.userName
     }
   }
 

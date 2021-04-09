@@ -3,7 +3,7 @@
 const { robloxAdapter } = require('../adapters')
 
 async function getGroupsRoles (userId) {
-  return (await robloxAdapter('get', 'groups', `v1/users/${userId}/groups/roles`)).data.data
+  return (await robloxAdapter('GET', 'groups', `v1/users/${userId}/groups/roles`)).data.data
 }
 
 async function getUser (userId) {

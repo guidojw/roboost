@@ -56,7 +56,7 @@ const VerifiableGuildMember = Structures.extend('GuildMember', GuildMember => {
 async function fetchRoVerData (userId) {
   let response
   try {
-    response = (await roVerAdapter('get', `/user/${userId}`)).data
+    response = (await roVerAdapter('get', `user/${userId}`)).data
   } catch (err) {
     if (err.response?.data?.errorCode === 404) {
       return null
@@ -71,7 +71,7 @@ async function fetchRoVerData (userId) {
 }
 
 async function fetchBloxlinkData (userId, guildId) {
-  const response = (await bloxlinkAdapter('get', `/user/${userId}${guildId ? `?guild=${guildId}` : ''}`)).data
+  const response = (await bloxlinkAdapter('get', `user/${userId}${guildId ? `?guild=${guildId}` : ''}`)).data
   if (response.status === 'error') {
     if (response.error.includes('not linked')) {
       return null

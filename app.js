@@ -77,7 +77,7 @@ async function updatePlaytesters () {
       message += `Added ${makeCommaSeparatedString(addedCollaborators.map(collaborator => usernames[collaborator.subjectId]).map(username => `**${username}**`))} to ${gameName}.\n`
     }
     if (removedCollaborators.length > 0) {
-      message += `Removed ${makeCommaSeparatedString(removedCollaborators.map(collaborator => usernames[collaborator.userId]).map(username => `**${username}**`))} from ${gameName}.\n`
+      message += `Removed ${makeCommaSeparatedString(removedCollaborators.map(collaborator => usernames[collaborator.subjectId]).map(username => `**${username}**`))} from ${gameName}.\n`
     }
     if (notVerifieds.length > 0) {
       message += `Couldn't add ${makeCommaSeparatedString(notVerifieds)} to ${gameName}. Verify with RoVer or Bloxlink in order to be added.`

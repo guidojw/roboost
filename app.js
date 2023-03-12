@@ -8,12 +8,12 @@ const { userService } = require('./src/services')
 const { makeCommaSeparatedString } = require('./src/util').util
 
 // Update these constants:
-const UNIVERSE_ID = 0
-const IGNORE_USERS = []
-const GAME_NAME = ''
+const UNIVERSE_ID = 72547907
+const IGNORE_USERS = [5087205, 122457876, 823586147, 390707629]
+const GAME_NAME = 'Updates Workplace'
 
-const GUILD_ID = ''
-const OUTPUT_CHANNEL_ID = ''
+const GUILD_ID = '248213310787289099'
+const OUTPUT_CHANNEL_ID = '697536748137218089'
 
 require('./src/extensions')
 
@@ -116,6 +116,7 @@ async function getCollaborators (client) {
     },
     json: true
   })).body.data.map(collaborator => {
+    console.log(collaborator)
     if (typeof collaborator.userId !== 'undefined') {
       collaborator.userId = parseInt(collaborator.userId)
     }

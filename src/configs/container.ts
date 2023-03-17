@@ -18,6 +18,8 @@ bind<BloxyClient>(TYPES.BloxyClient).toDynamicValue(() => new BloxyClient({ rest
   .inSingletonScope()
 
 // Event Handlers
+bind<BaseHandler>(TYPES.Handler).to(eventHandlers.GuildMemberRemoveEventHandler)
+  .whenTargetTagged('eventHandler', 'guildMemberRemove')
 bind<BaseHandler>(TYPES.Handler).to(eventHandlers.GuildMemberUpdateEventHandler)
   .whenTargetTagged('eventHandler', 'guildMemberUpdate')
 

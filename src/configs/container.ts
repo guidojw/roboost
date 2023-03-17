@@ -1,10 +1,6 @@
 import * as jobs from '../jobs'
 import * as services from '../services'
-import {
-  type BaseHandler,
-  RoBoostClient,
-  eventHandlers
-} from '../client'
+import { type BaseHandler, RoBoostClient, eventHandlers } from '../client'
 import { Container, type interfaces } from 'inversify'
 import { bloxy, constants } from '../utils'
 import type { BaseJob } from '../jobs'

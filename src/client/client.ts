@@ -1,10 +1,4 @@
-import {
-  Client,
-  type ClientEvents,
-  Constants,
-  Intents,
-  type PartialTypes as PartialType
-} from 'discord.js'
+import { Client, type ClientEvents, Constants, Intents, type PartialTypes as PartialType } from 'discord.js'
 import { decorate, inject, injectable, type interfaces } from 'inversify'
 import { type BaseHandler } from '.'
 import { constants } from '../utils'

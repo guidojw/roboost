@@ -1,16 +1,44 @@
 {
-  "name": "update-booster-playtesters",
-  "version": "1.0.0",
-  "main": "app.js",
+  "name": "roboost",
+  "version": "0.0.0",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/guidojw/roboost.git"
+  },
   "license": "MIT",
+  "author": "Guido de Jong",
+  "main": "dist/app.js",
   "scripts": {
-    "start": "node app.js"
+    "build": "tsc",
+    "build:prod": "tsc -p tsconfig.production.json",
+    "lint": "eslint src",
+    "start": "node dist/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
+    "@guidojw/bloxy": "^5.7.6",
+    "@sentry/integrations": "^7.42.0",
+    "@sentry/node": "^7.42.0",
     "axios": "^0.21.1",
-    "bloxy": "^5.7.3",
-    "discord.js": "^12.5.2",
-    "dotenv": "^8.2.0",
-    "got": "^11.8.2"
+    "discord.js": "^13.13.1",
+    "dotenv": "^16.0.3",
+    "inversify": "^6.0.1",
+    "lodash": "^4.17.21",
+    "node-cron": "^3.0.2"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.191",
+    "@types/node": "^18.15.0",
+    "@types/node-cron": "^3.0.7",
+    "@typescript-eslint/eslint-plugin": "^5.54.1",
+    "eslint": "^8.36.0",
+    "eslint-config-standard-with-typescript": "^34.0.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-n": "^15.6.1",
+    "eslint-plugin-promise": "^6.1.1",
+    "eslint-plugin-unicorn": "^46.0.0",
+    "reflect-metadata": "^0.1.13",
+    "typescript": "^4.7.4"
   }
 }

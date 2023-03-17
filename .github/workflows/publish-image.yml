@@ -1,0 +1,119 @@
+name: Publish Image
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+env:
+  PROJECT_NAME: roboost
+  REGISTRY_URL: ghcr.io
+  SENTRY_ORG: guidos-projects
+  APP_ID: 152323
+
+jobs:
+  metadata:
+    name: Metadata
+    runs-on: ubuntu-latest
+    outputs:
+      tag: ${{ steps.get_metadata.outputs.tag }}
+      build_args: ${{ steps.get_metadata.outputs.build_args }}
+    steps:
+      - name: Get metadata
+        id: get_metadata
+        run: |
+          if [ "$GITHUB_REF_NAME" = 'main' ]; then
+            echo 'tag=latest' >> "$GITHUB_OUTPUT"
+          else
+            echo 'tag='"$GITHUB_REF_NAME" >> "$GITHUB_OUTPUT"
+          fi
+
+          if [ "$GITHUB_REF_NAME" = 'main' ]; then
+            BUILD_ARGS='BUILD_HASH='"$GITHUB_SHA"
+            BUILD_ARGS+=$'\nNODE_ENV=production'
+            {
+              echo 'build_args<<EOF'
+              echo "$BUILD_ARGS"
+              echo 'EOF'
+            } >> "$GITHUB_OUTPUT"
+          fi
+
+  publish:
+    name: Publish
+    runs-on: ubuntu-latest
+    needs: metadata
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c # v3.3.0
+        with:
+          fetch-depth: 0
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@4b4e9c3e2d4531116a6f8ba8e71fc6e2cb6e6c8c # v2.5.0
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a # tag=v2.1.0
+        with:
+          registry: ${{ env.REGISTRY_URL }}
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push image
+        id: build_push_image
+        uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671 # v4.0.0
+        with:
+          push: true
+          context: .
+          build-args: ${{ needs.metadata.outputs.build_args }}
+          cache-from: type=gha,scope=main
+          cache-to: type=gha,scope=main
+          tags: |
+            ${{ env.REGISTRY_URL }}/${{ github.repository_owner }}/${{ env.PROJECT_NAME }}:${{
+            needs.metadata.outputs.tag }}
+
+      - name: Get sourcemaps from image
+        if: ${{ !(github.event_name == 'workflow_dispatch' && github.workflow == 'Publish Image') }}
+        env:
+          IMAGE_NAME: ${{ fromJSON(steps.build_push_image.outputs.metadata)['image.name'] }}
+        run: |
+          docker cp "$(docker create "$IMAGE_NAME")":/opt/app/dist/. sourcemaps
+
+      - name: Create Sentry release
+        if: ${{ !(github.event_name == 'workflow_dispatch' && github.workflow == 'Publish Image') }}
+        uses: getsentry/action-release@586b62368d564f25d694ce05fcb9cf53de65ac4f # v1.3.1
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_PROJECT: ${{ env.PROJECT_NAME }}
+        with:
+          finalize: false
+          sourcemaps: sourcemaps
+          version: ${{ github.sha }}
+          url_prefix: ~/dist
+
+  update_check_run:
+    name: Update Check Run
+    runs-on: ubuntu-latest
+    needs: [metadata, publish]
+    if: github.event_name == 'workflow_dispatch' && github.workflow == 'Publish Image' && always()
+    steps:
+      - name: Get conclusion
+        id: get_conclusion
+        env:
+          RESULTS: ${{ join(needs.*.result, ' ') }}
+        run: |
+          echo 'conclusion=success' >> "$GITHUB_OUTPUT"
+          for RESULT in $RESULTS; do
+            if [ "$RESULT" = 'cancelled' ] || [ "$RESULT" = 'failure' ]; then
+              echo 'conclusion='"$RESULT" >> "$GITHUB_OUTPUT"
+              break
+            fi
+          done
+
+      - name: Update Publish Image check run
+        uses: guidojw/actions/update-check-run@abb0ee8d1336edf73383f2e5a09abd3a22f25b13 # v1.3.3
+        with:
+          app_id: ${{ env.APP_ID }}
+          private_key: ${{ secrets.APP_PRIVATE_KEY }}
+          name: Publish Image
+          conclusion: ${{ steps.get_conclusion.outputs.conclusion }}
+          details_url: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}

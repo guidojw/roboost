@@ -1,5 +1,16 @@
 .env
 
-/node_modules
+node_modules
+dist
 
-/.idea/*
+.yarn/*
+!.yarn/patches
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
+.pnp.*
+yarn-error.log
+
+ecosystem.config.js
+.idea

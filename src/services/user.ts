@@ -9,9 +9,5 @@ export async function getGroupsRoles (userId: number): Promise<GetGroupsRoles> {
 }
 
 export async function getUser (userId: number): Promise<GetUserById> {
-  try {
-    return (await robloxAdapter('GET', 'users', `v1/users/${userId}`)).data
-  } catch (err) {
-    throw new Error(`**${userId}** doesn't exist on Roblox.`)
-  }
+  return (await robloxAdapter('GET', 'users', `v1/users/${userId}`)).data
 }

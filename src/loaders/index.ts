@@ -46,7 +46,11 @@ export async function init (): Promise<RoBoostClient> {
   const bloxyClient = container.get<BloxyClient>(TYPES.BloxyClient)
   await bloxyClient.login(process.env.ROBLOX_COOKIE)
 
-  await jobFactory('updatePlaytesters').run()
+  await jobFactory('updatePlaytesters').run(
+    parseInt(process.env.UNIVERSE_ID as string),
+    process.env.GUILD_ID,
+    process.env.OUTPUT_CHANNEL_ID
+  )
 
   return discordClient
 }

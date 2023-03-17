@@ -29,7 +29,7 @@ interface APIPostUniversePermissions {
 }
 type APIDeleteUniversePermissions = APIPostUniversePermissions
 
-type Playtester = {
+export type Playtester = {
   action: 'Play' | 'Edit' | null
   allowedPermissions: '' | 'Play' | 'Play,Edit'
 } & ({

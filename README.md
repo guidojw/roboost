@@ -8,7 +8,8 @@ Synchronises your Discord server boosters to your Roblox game's playtesters. In 
 Users who are no longer boosting and whose Roblox IDs are not in the `IGNORE_USER_IDS` environment variable will be removed from your game's playtesters.
 
 **Note** 
-The bot you're going to do this with must have its `GUILD_MEMBERS` [intent](https://discord.com/developers/docs/topics/gateway#gateway-intents) enabled on the Discord Developer Portal. The Roblox cookie you use has to be from the account which is owner of the game.
+The bot you're going to do this with must have its `GUILD_MEMBERS` [intent](https://discord.com/developers/docs/topics/gateway#gateway-intents) enabled on the Discord Developer Portal. 
+The Roblox cookie you use has to be from the account which is owner of the game.
  
 ## Prerequisites
 * [Node.js](https://nodejs.org/en/download/current/) (with npm)

@@ -3,16 +3,6 @@ name: Publish Image
 on:
   push:
     branches: [main]
-  workflow_call:
-    inputs:
-      sha:
-        description: The commit SHA to run the workflow on
-        required: false
-        type: string
-    secrets:
-      sentry_auth_token:
-        description: The Sentry integration's token
-        required: true
   workflow_dispatch:
 
 env:
@@ -31,8 +21,6 @@ jobs:
     steps:
       - name: Get metadata
         id: get_metadata
-        env:
-          INPUT_SHA: ${{ inputs.sha }}
         run: |
           if [ "$GITHUB_REF_NAME" = 'main' ]; then
             echo 'tag=latest' >> "$GITHUB_OUTPUT"
@@ -41,7 +29,7 @@ jobs:
           fi
 
           if [ "$GITHUB_REF_NAME" = 'main' ]; then
-            BUILD_ARGS='BUILD_HASH='${INPUT_SHA:-$GITHUB_SHA}
+            BUILD_ARGS='BUILD_HASH='"$GITHUB_SHA"
             BUILD_ARGS+=$'\nNODE_ENV=production'
             {
               echo 'build_args<<EOF'
@@ -58,7 +46,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c # v3.3.0
         with:
-          ref: ${{ inputs.sha }}
           fetch-depth: 0
 
       - name: Set up Docker Buildx
@@ -100,7 +87,7 @@ jobs:
         with:
           finalize: false
           sourcemaps: sourcemaps
-          version: ${{ inputs.sha }}
+          version: ${{ github.sha }}
           url_prefix: ~/dist
 
   update_check_run:

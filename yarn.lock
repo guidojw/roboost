@@ -3108,7 +3108,7 @@ __metadata:
     lodash: ^4.17.21
     node-cron: ^3.0.2
     reflect-metadata: ^0.1.13
-    typescript: 4.7.4
+    typescript: ^4.7.4
   languageName: unknown
   linkType: soft
 
@@ -3574,7 +3574,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:4.7.4":
+"typescript@npm:^4.7.4":
   version: 4.7.4
   resolution: "typescript@npm:4.7.4"
   bin:
@@ -3584,7 +3584,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@4.7.4#~builtin<compat/typescript>":
+"typescript@patch:typescript@^4.7.4#~builtin<compat/typescript>":
   version: 4.7.4
   resolution: "typescript@patch:typescript@npm%3A4.7.4#~builtin<compat/typescript>::version=4.7.4&hash=65a307"
   bin:

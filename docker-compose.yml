@@ -4,3 +4,4 @@ services:
   app:
     image: ghcr.io/guidojw/roboost:latest
     restart: unless-stopped
+    env_file: .env

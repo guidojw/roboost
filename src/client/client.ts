@@ -27,6 +27,7 @@ export default class RoBoostClient<Ready extends boolean = boolean> extends Clie
   }
 
   private async ready (): Promise<void> {
+    this.bindEvent('guildMemberRemove')
     this.bindEvent('guildMemberUpdate')
 
     console.log(`Ready to serve on ${this.guilds.cache.size} servers, for ${this.users.cache.size} users.`)

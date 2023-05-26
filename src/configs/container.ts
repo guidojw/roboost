@@ -14,8 +14,7 @@ const bind = container.bind.bind(container)
 // Client
 bind<RoBoostClient>(TYPES.RoBoostClient).to(RoBoostClient)
   .inSingletonScope()
-bind<BloxyClient>(TYPES.BloxyClient).toDynamicValue(() => new BloxyClient({ rest: { requester: bloxy.requester } }))
-  .inSingletonScope()
+bind<BloxyClient>(TYPES.BloxyClient).toConstantValue(new BloxyClient({ rest: { requester: bloxy.requester } }))
 
 // Event Handlers
 bind<BaseHandler>(TYPES.Handler).to(eventHandlers.GuildMemberRemoveEventHandler)

@@ -49,7 +49,7 @@ jobs:
           env: ${{ needs.metadata.outputs.stage }}
 
       - name: Deploy
-        uses: appleboy/ssh-action@b60142998894e495c513803efc6d5d72a72c968a # v0.1.8
+        uses: appleboy/ssh-action@029f5b4aeeeb58fdfe1410a5d17f967dacf36262 # v1.0.3
         env:
           STAGE: ${{ needs.metadata.outputs.stage }}
         with:

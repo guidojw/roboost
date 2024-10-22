@@ -19,7 +19,7 @@
   "dependencies": {
     "@guidojw/bloxy": "^5.7.6",
     "@sentry/integrations": "^7.42.0",
-    "@sentry/node": "^7.42.0",
+    "@sentry/node": "^8.35.0",
     "axios": "^0.21.1",
     "discord.js": "^13.13.1",
     "dotenv": "^16.0.3",

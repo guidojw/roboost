@@ -23,7 +23,7 @@
     "axios": "^0.21.1",
     "discord.js": "^13.13.1",
     "dotenv": "^16.0.3",
-    "inversify": "^6.0.1",
+    "inversify": "^7.11.0",
     "lodash": "^4.17.21",
     "node-cron": "^3.0.2"
   },

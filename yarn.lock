@@ -1028,10 +1028,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dotenv@npm:^16.0.3":
-  version: 16.0.3
-  resolution: "dotenv@npm:16.0.3"
-  checksum: afcf03f373d7a6d62c7e9afea6328e62851d627a4e73f2e12d0a8deae1cd375892004f3021883f8aec85932cd2834b091f568ced92b4774625b321db83b827f8
+"dotenv@npm:^17.4.2":
+  version: 17.4.2
+  resolution: "dotenv@npm:17.4.2"
+  checksum: 217bf2c4696ca40acc13ad063341e9c77cedfdd75e56e4919f4cf2c6333e4f7b38a4b4067e49d006125502a61060cbe85c7eecb0644e4d99ff014693eb7e62c4
   languageName: node
   linkType: hard
 
@@ -3097,7 +3097,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": ^5.54.1
     axios: ^0.21.1
     discord.js: ^13.13.1
-    dotenv: ^16.0.3
+    dotenv: ^17.4.2
     eslint: ^8.36.0
     eslint-config-standard-with-typescript: ^34.0.0
     eslint-plugin-import: ^2.27.5
